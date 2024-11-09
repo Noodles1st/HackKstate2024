@@ -13,7 +13,8 @@
     "axios": "^1.7.7",
     "express": "^4.21.1",
     "got": "^14.4.4",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "serverless-http": "^3.2.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

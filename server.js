@@ -1,5 +1,7 @@
-const express = require('express')
+const express = require('express');
 const app = express();
+const serverless = require('serverless-http');
+
 
 app.get('/', (req, res) => {
     res.send(`
@@ -35,3 +37,5 @@ app.get('/weather', async (req, res) => {
 
 
 app.listen(3000, () => console.log('Sever connected to port 3000'))
+
+module.exports = serverless(app);
