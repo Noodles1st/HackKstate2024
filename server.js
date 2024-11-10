@@ -4,6 +4,9 @@ const express = require('express');
 const app = express();
 const serverless = require('serverless-http');
 const cors = require('cors');
+require('dotenv').config();
+
+const apiKey = process.env.API_KEY;
 
 
 app.use(cors());  // This will enable CORS for all routes by default
@@ -25,7 +28,7 @@ app.get('/weather', async (req, res) => {
     const response = await got(`https://api.openweathermap.org/data/2.5/weather`, {
       searchParams: {
         q: city,
-        appid: '589ca155fe2f4011e53a8475baeb5aea',
+        appid: apiKey,
         units: 'imperial',
       },
       responseType: 'json',
