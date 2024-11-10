@@ -1,8 +1,13 @@
+// server.js
+
 const express = require('express');
 const app = express();
 const serverless = require('serverless-http');
+const cors = require('cors');
 
 
+app.use(cors());  // This will enable CORS for all routes by default
+app.use(express.json());
 app.get('/', (req, res) => {
     res.send(`
         <form action="/weather" method="get">
@@ -14,28 +19,32 @@ app.get('/', (req, res) => {
 });
 
 app.get('/weather', async (req, res) => {
-    const got = (await import('got')).default;
-    let city = req.query.city;
+  const city = req.query.city;
+  const got = (await import('got')).default;
+  try {
+    const response = await got(`https://api.openweathermap.org/data/2.5/weather`, {
+      searchParams: {
+        q: city,
+        appid: '589ca155fe2f4011e53a8475baeb5aea',
+        units: 'imperial',
+      },
+      responseType: 'json',
+    });
     
-    try {
-        const response = await got(`https://samples.openweathermap.org/data/2.5/forecast`, {
-            searchParams: {
-                q: city,
-                appid: '589ca155fe2f4011e53a8475baeb5aea'
-            },
-            responseType: 'json'
-        });
-        
-        // Access the data from the response body
-        const data = response.body;
-        const weatherDescription = data.list[0].weather[0].description;
-        res.send(`The weather in your city "${city}" is ${weatherDescription}`);
-    } catch (error) {
-        res.status(500).send("An error occurred while fetching the weather data.");
-    }
+    const data = response.body;
+    const weatherData = {
+      city: data.name,
+      description: data.weather[0].description,
+      temperature: data.main.temp,
+    };
+    res.setHeader('Content-Type', 'application/json'); // Ensure response is treated as JSON
+    res.json(weatherData);
+  } catch (error) {
+    res.status(500).json({ error: 'Could not fetch weather data' });
+  }
 });
 
+app.listen(3000, () => console.log('Server running at http://localhost:3000'));
 
-app.listen(3000, () => console.log('Sever connected to port 3000'))
 
 module.exports = serverless(app);

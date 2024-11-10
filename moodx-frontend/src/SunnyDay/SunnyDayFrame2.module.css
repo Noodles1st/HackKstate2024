@@ -1,0 +1,101 @@
+.container {
+  background-color: #f2e2c3;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: center;
+  padding: 96px 80px 202px;
+}
+
+@media (max-width: 991px) {
+  .container {
+    padding: 0 20px 100px;
+  }
+}
+
+.content {
+  display: flex;
+  margin-left: 24px;
+  width: 100%;
+  max-width: 1518px;
+  flex-direction: column;
+}
+
+@media (max-width: 991px) {
+  .content {
+    max-width: 100%;
+  }
+}
+
+.musicSection {
+  align-self: flex-end;
+  width: 100%;
+  max-width: 1462px;
+}
+
+@media (max-width: 991px) {
+  .musicSection {
+    max-width: 100%;
+  }
+}
+
+.musicRow {
+  gap: 20px;
+  display: flex;
+}
+
+@media (max-width: 991px) {
+  .musicRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+}
+
+.genreCircle {
+  background-color: #faae41;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  color: #ffffff;
+  white-space: nowrap;
+  aspect-ratio: 1;
+  width: 100%;
+  padding: 0 70px;
+  font: 400 36px 'Libre Caslon Text', -apple-system, Roboto, Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 991px) {
+  .genreCircle {
+    margin-top: 40px;
+    white-space: initial;
+    padding: 100px 20px;
+  }
+}
+
+.description {
+  color: #5f4419;
+  align-self: stretch;
+  margin: auto 0;
+  font: 400 24px 'Libre Caslon Text', -apple-system, Roboto, Helvetica, sans-serif;
+}
+
+@media (max-width: 991px) {
+  .description {
+    max-width: 100%;
+    margin-top: 40px;
+  }
+}
+
+.popSection {
+  align-self: flex-start;
+  margin-top: 182px;
+}
+
+@media (max-width: 991px) {
+  .popSection {
+    max-width: 100%;
+  }
+}
