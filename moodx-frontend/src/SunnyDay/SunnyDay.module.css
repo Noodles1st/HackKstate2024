@@ -1,0 +1,47 @@
+.header {
+    background-color: #f2e2c3;
+    display: flex;
+    gap: 40px 100px;
+    overflow: hidden;
+    color: #5f4419;
+    flex-wrap: wrap;
+    padding: 36px 26px;
+    font: 400 32px Inknut Antiqua, -apple-system, Roboto, Helvetica, sans-serif;
+  }
+  
+  @media (max-width: 991px) {
+    .header {
+      padding: 0 20px;
+    }
+  }
+  
+  .logoContainer {
+    display: flex;
+    gap: 40px 42px;
+    white-space: nowrap;
+  }
+  
+  @media (max-width: 991px) {
+    .logoContainer {
+      white-space: initial;
+    }
+  }
+  
+  .logoImage {
+    aspect-ratio: 1.08;
+    object-fit: contain;
+    object-position: center;
+    width: 67px;
+    background-color: #faae41;
+    border-radius: 50%;
+    margin: auto 0;
+  }
+  
+  .brandName {
+    flex-basis: auto;
+  }
+  
+  .location {
+    white-space: nowrap;
+  }
+  

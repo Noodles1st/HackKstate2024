@@ -1,50 +1,36 @@
-// Import necessary modules
-import express from 'express';
-import serverless from 'serverless-http';
-import got from 'got';  // Static import for got module
+// server.js
 
-
-
+const express = require('express');
+const got = require('got');
 const app = express();
+const serverless = require('serverless-http');
 
-// Simple form for input
-app.get('/', (req, res) => {
-  res.send(`
-    <form action="/weather" method="get">
-        <label for="city">Enter City:</label>
-        <input type="text" id="city" name="city" required>
-        <button type="submit">Get Weather</button>
-    </form>
-  `);
-});
+app.use(express.json());
 
-// Weather fetching logic
 app.get('/weather', async (req, res) => {
   const city = req.query.city;
-
   try {
-    const response = await got('https://samples.openweathermap.org/data/2.5/forecast', {
+    const response = await got(`https://api.openweathermap.org/data/2.5/weather`, {
       searchParams: {
         q: city,
-        appid: '589ca155fe2f4011e53a8475baeb5aea' // Replace with actual API key
+        appid: '589ca155fe2f4011e53a8475baeb5aea',
+        units: 'imperial',
       },
       responseType: 'json',
     });
-
-    // Access the data from the response body
+    
     const data = response.body;
-    const weatherDescription = data.list[0].weather[0].description;
-
-    res.send(`The weather in your city "${city}" is ${weatherDescription}`);
+    const weatherData = {
+      city: data.name,
+      description: data.weather[0].description,
+      temperature: data.main.temp,
+    };
+    res.json(weatherData);
   } catch (error) {
-    res.status(500).send("An error occurred while fetching the weather data.");
+    res.status(500).json({ error: 'Could not fetch weather data' });
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server running at http://localhost:3000/");
-});
+app.listen(3000, () => console.log('Server running at http://localhost:3000'));
 
-
-// Export the handler function for Vercel serverless
-export default serverless(app);
+module.exports = serverless(app);
